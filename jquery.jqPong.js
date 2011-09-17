@@ -7,7 +7,7 @@
  *  - http://www.opensource.org/licenses/mit-license.php
  *
  * Author: R. Kowalski
- * Version: 0.4
+ * Version: 0.4.1
  * Date: 06th Sep 2011
  *
  */
@@ -30,7 +30,7 @@
             var randomId = 'canvas';
             randomId += Math.random();
 
-            $this.html('<canvas id="'+randomId+'" width="400" height="400"> \
+            $this.html('<canvas style="border: 1px solid black;" id="'+randomId+'" width="400" height="400"> \
                             Your Browser does not support canvas. :( \
                         </canvas>');
 
@@ -194,14 +194,30 @@
             };
 
 
-            var gameloop = function() {
-                clear();
-                drawPads();
-                Moveball.move();
-                drawBall();
 
+            window.requestAnimFrame = (function(){
+                  return  window.requestAnimationFrame       || 
+                          window.webkitRequestAnimationFrame || 
+                          window.mozRequestAnimationFrame    || 
+                          window.oRequestAnimationFrame      || 
+                          window.msRequestAnimationFrame     || 
+                          function(callback){
+                            gLoop = window.setTimeout(callback, 1000 / 60);
+                          };
+                })();
+
+
+            var gameloop = function (){
+                clear();
+                
+                Moveball.move();
+                
+                drawPads();
+                drawBall();
                 drawCounter();
-                gLoop = setTimeout(gameloop, gameSpeed);
+                
+                requestAnimFrame(gameloop);
+                  
             };
 
 
