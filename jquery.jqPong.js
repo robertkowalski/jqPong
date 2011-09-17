@@ -7,7 +7,7 @@
  *  - http://www.opensource.org/licenses/mit-license.php
  *
  * Author: R. Kowalski
- * Version: 0.4.1
+ * Version: 0.4
  * Date: 06th Sep 2011
  *
  */
@@ -35,11 +35,11 @@
                         </canvas>');
 
             var gLoop,
-            height = settings.height,
-            width = settings.width,
-            gameSpeed = 20,
-            pause = false,
-            counter = [0, 0];
+                height = settings.height,
+                width = settings.width,
+                gameSpeed = 20,
+                pause = false,
+                counter = [0, 0];
 
             var c = document.getElementById(randomId);
 
@@ -55,18 +55,7 @@
 
 
             var clear = function() {
-                canvas.clearRect(0, 0, width, height);
-                canvas.fillStyle = 'rgba(0, 0, 0, 1)';
-            };
-
-
-            var drawPads = function() {
-                for(var i = 0; i < pads.length; i++) {
-                    canvas.fillStyle = 'rgba(0, 0, 0, 1)';
-                    //rect(x, y, width, height)
-                    canvas.fillRect(pads[i][0], pads[i][1], pads[i][2], pads[i][3]);
-
-                }
+                canvas.clearRect(0, 0, width, height); //x,y,w,h
             };
 
 
@@ -85,18 +74,26 @@
             };
 
 
-            var drawCounter = function() {
+            var draw = function() {
+                
+                //pads
+                for(var i = 0; i < pads.length; i++) {
+                    canvas.fillStyle = 'rgba(0, 0, 0, 1)';
+                    //rect(x, y, width, height)
+                    canvas.fillRect(pads[i][0], pads[i][1], pads[i][2], pads[i][3]);
+
+                }
+                
+                //counter
                 canvas.font = "bold 30px sans-serif";
                 var dim = canvas.measureText(counter[0]+":"+counter[1]);
                 
                 canvas.fillStyle = 'rgba(0, 0, 0, 1)';
                 canvas.fillText(counter[0]+":"+counter[1],width/2-dim.width/2,35);
-            };
-
-
-            var drawBall = function() {
+                
+                
+                //ball
                 canvas.fillStyle = 'rgba(0, 0, 0, 1)';
-
                 canvas.fillRect(Ball.pos[0], Ball.pos[1], Ball.pos[2], Ball.pos[3]);
 
             };
@@ -194,30 +191,13 @@
             };
 
 
-
-            window.requestAnimFrame = (function(){
-                  return  window.requestAnimationFrame       || 
-                          window.webkitRequestAnimationFrame || 
-                          window.mozRequestAnimationFrame    || 
-                          window.oRequestAnimationFrame      || 
-                          window.msRequestAnimationFrame     || 
-                          function(callback){
-                            gLoop = window.setTimeout(callback, 1000 / 60);
-                          };
-                })();
-
-
-            var gameloop = function (){
+            var gameloop = function() {
                 clear();
-                
+
                 Moveball.move();
-                
-                drawPads();
-                drawBall();
-                drawCounter();
-                
-                requestAnimFrame(gameloop);
-                  
+                draw();
+
+                gLoop = setTimeout(gameloop, gameSpeed);
             };
 
 
@@ -304,9 +284,7 @@
 
             };
 
-            drawPads();
-            drawBall();
-            drawCounter();
+            draw();
             gameloop();
             document.onkeydown=keyDown;
         })
