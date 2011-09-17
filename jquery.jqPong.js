@@ -19,6 +19,9 @@
           'height': 500,
           'width': 500
         };
+        
+        //@todo: allow other colors by option
+        //canvas.fillStyle = 'rgba(1, 1, 1, 0)';
 
         return this.each(function() {
             if (options) {
@@ -78,7 +81,6 @@
                 
                 //pads
                 for(var i = 0; i < pads.length; i++) {
-                    canvas.fillStyle = 'rgba(0, 0, 0, 1)';
                     //rect(x, y, width, height)
                     canvas.fillRect(pads[i][0], pads[i][1], pads[i][2], pads[i][3]);
 
@@ -87,13 +89,9 @@
                 //counter
                 canvas.font = "bold 30px sans-serif";
                 var dim = canvas.measureText(counter[0]+":"+counter[1]);
-                
-                canvas.fillStyle = 'rgba(0, 0, 0, 1)';
                 canvas.fillText(counter[0]+":"+counter[1],width/2-dim.width/2,35);
                 
-                
                 //ball
-                canvas.fillStyle = 'rgba(0, 0, 0, 1)';
                 canvas.fillRect(Ball.pos[0], Ball.pos[1], Ball.pos[2], Ball.pos[3]);
 
             };
