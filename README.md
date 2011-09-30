@@ -38,4 +38,7 @@ With options
          });
     })
 ```    
-    
+
+## Demo
+
+[http://robertkowalski.github.com/jqPong/](http://robertkowalski.github.com/jqPong/)
