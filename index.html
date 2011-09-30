@@ -4,6 +4,17 @@
   <meta charset='utf-8'>
 
   <title>robertkowalski/jqPong @ GitHub</title>
+  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  
+  <script type="text/javascript">
+        if (typeof jQuery == 'undefined'){
+            document.write(unescape("%3Cscript src='jquery-1.6.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+  </script>
+
+  <script type="text/javascript" src="jquery.jqPong.js"></script>
+
 
   <style type="text/css">
     body {
@@ -49,7 +60,27 @@
       html5 canvas jquery plugin game
     </div>
 
-    <p>Demo: </p><h2>License</h2>
+    <p>Demo: </p>
+    
+    <div id="test"></div>
+
+    <div>Keys</div>
+    <ul>
+        <li>Player 1: w & s</li>
+        <li>Player 2: k & m</li>
+        <li>Pause: p</li>
+    </ul>
+
+    <script>
+        $(document).ready(function (){
+            $('#test').jqPong({'height': 500, 'width': 500}); // ,color: 'rgba(255, 0, 0, 1)'
+        })
+    </script>
+    <br/>
+    
+    
+    
+<h2>License</h2>
 <p>BSD License</p>
 <h2>Authors</h2>
 <p>Robert Kowalski<br/><br/>      </p>
