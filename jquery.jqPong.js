@@ -262,13 +262,13 @@
                             }
                         break;
 
-                        //right player (cursor up & down)
-                        case 40:
+                        //right player (k,m)
+                        case 77:
                             if(pads[1][1] < (height-pads[1][3])) {//pads[0][3]
                                 movePads(-5, 1);
                             }
                         break;
-                        case 38:
+                        case 75:
                             if(pads[1][1] > 0) {
                                 movePads(5, 1);
                             }
