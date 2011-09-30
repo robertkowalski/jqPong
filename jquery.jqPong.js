@@ -308,7 +308,3 @@
     };
 
 })(jQuery || {});
-
-$(document).ready(function (){
-    $('#test').jqPong({'height': 500, 'width': 500}); // ,color: 'rgba(255, 0, 0, 1)'
-})
