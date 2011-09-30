@@ -1,4 +1,4 @@
-# "jqPong" - HTML5 Canvas jQuery Plugin Game
+# "jqPong" - HTML5 Canvas jQuery game plugin experiment
 
 
 **Copyright (c) 2011, R. Kowalski**
