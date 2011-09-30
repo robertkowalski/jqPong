@@ -7,8 +7,8 @@
  *  - http://www.opensource.org/licenses/mit-license.php
  *
  * Author: R. Kowalski
- * Version: 0.4
- * Date: 06th Sep 2011
+ * Version: 0.5
+ * Date: 17th Sep 2011
  *
  */
 
@@ -17,11 +17,10 @@
 
         var settings = {
           'height': 500,
-          'width': 500
+          'width': 500,
+          'color': 'rgba(0, 0, 0, 1)'
         };
-        
-        //@todo: allow other colors by option
-        //canvas.fillStyle = 'rgba(1, 1, 1, 0)';
+                
 
         return this.each(function() {
             if (options) {
@@ -33,7 +32,7 @@
             var randomId = 'canvas';
             randomId += Math.random();
 
-            $this.html('<canvas style="border: 1px solid black;" id="'+randomId+'" width="400" height="400"> \
+            $this.html('<canvas style="-webkit-transform: translateZ(0);border: 1px solid black;" id="'+randomId+'" width="400" height="400"> \
                             Your Browser does not support canvas. :( \
                         </canvas>');
 
@@ -42,20 +41,25 @@
                 width = settings.width,
                 gameSpeed = 20,
                 pause = false,
-                counter = [0, 0];
+                counter = [0, 0],
+                color = settings.color;
 
             var c = document.getElementById(randomId);
 
-            canvas = c.getContext('2d');
             c.width = width;
             c.height = height;
 
+            canvas = c.getContext('2d');      
+            canvas.fillStyle = color;
+
             //create paddels
-            var pads = [];
+            var pads = [], padsOld = [];
             // x-pos, y-pos, width, height
             pads[0] = [0, 100, 20, 150];
             pads[1] = [width-20, 100, 20, 150];
 
+            padsOld[0] = [0, 100, 20, 150];
+            padsOld[1] = [width-20, 100, 20, 150];
 
             var clear = function() {
                 canvas.clearRect(0, 0, width, height); //x,y,w,h
@@ -63,6 +67,8 @@
 
 
             var movePads = function(deltaY, pad) {
+                padsOld[pad][1] = pads[pad][1];
+                
                 for (var i = 0; i < 2; i++) {
                     pads[pad][1] -= deltaY;
                 }
@@ -73,25 +79,27 @@
                 pos: [200, 200, 10, 10],
                 xd: "right",
                 yd: "up",
-                speed: 2
+                speed: 2,
+                oldPos: [200, 200, 10, 10]
             };
 
 
             var draw = function() {
-                
                 //pads
                 for(var i = 0; i < pads.length; i++) {
                     //rect(x, y, width, height)
+                    canvas.clearRect(padsOld[i][0], padsOld[i][1], padsOld[i][2], padsOld[i][3]); //x,y,w,h
                     canvas.fillRect(pads[i][0], pads[i][1], pads[i][2], pads[i][3]);
-
                 }
                 
                 //counter
                 canvas.font = "bold 30px sans-serif";
                 var dim = canvas.measureText(counter[0]+":"+counter[1]);
+                canvas.clearRect(width/2-dim.width/2, 0, dim.width, 35);
                 canvas.fillText(counter[0]+":"+counter[1],width/2-dim.width/2,35);
-                
+
                 //ball
+                canvas.clearRect(Ball.oldPos[0], Ball.oldPos[1], Ball.oldPos[2], Ball.oldPos[3]);
                 canvas.fillRect(Ball.pos[0], Ball.pos[1], Ball.pos[2], Ball.pos[3]);
 
             };
@@ -101,12 +109,16 @@
                 move: function() {
                     this.checkXY();
                     
+                    Ball.oldPos[0] = Ball.pos[0];
+                    Ball.oldPos[1] = Ball.pos[1];
+                    
                     if(Ball.xd == "right") {
                         this.right();
                     }
                     if(Ball.xd == "left") {
                         this.left();
                     }
+                    
                 },
                 right: function() {
                     Ball.pos[0] = Ball.pos[0] + Ball.speed;
@@ -127,7 +139,7 @@
                     }
                 },
                 checkXY: function() {
-
+                    
                     var halfPad = [];
                     var absHalfPad = [];
 
@@ -190,8 +202,6 @@
 
 
             var gameloop = function() {
-                clear();
-
                 Moveball.move();
                 draw();
 
@@ -200,9 +210,15 @@
 
 
             var ResetGame = function() {
+                clear();
+                
                 pads[0] = [0, 100, 20, 150];
                 pads[1] = [width-20, 100, 20, 150];
-
+                
+                padsOld[0] = [0, 100, 20, 150];
+                padsOld[1] = [width-20, 100, 20, 150];
+                
+                
                 if(Ball.xd == "right") {
                     var newXd = "left";
                 }else {
@@ -219,7 +235,8 @@
                     pos: [200, 200, 10, 10],
                     xd: newXd,
                     yd: newYd,
-                    speed: 2
+                    speed: 2,
+                    oldPos: [200, 200, 10, 10]
                 };
                 gameSpeed = 20;
 
@@ -235,7 +252,7 @@
 
                         //left player (w & s)
                         case 83:
-                            if(pads[0][1] < (height-pads[1][3])) {
+                            if(pads[0][1] < (height-pads[0][3])) { //pads[1][3]
                                 movePads(-5, 0);
                             }
                         break;
@@ -247,7 +264,7 @@
 
                         //right player (cursor up & down)
                         case 40:
-                            if(pads[1][1] < (height-pads[0][3])) {
+                            if(pads[1][1] < (height-pads[1][3])) {//pads[0][3]
                                 movePads(-5, 1);
                             }
                         break;
@@ -261,10 +278,12 @@
                         case 80:
                             if(pause) {
                                 pause = false;
+                                clear();
                                 gameloop();
                             }else {
                                 var clT = clearTimeout(gLoop);
                                 pause = true;
+                                
                                 canvas.fillStyle = 'rgba(0, 0, 0, 1)';
                                 canvas.font = "bold 30px sans-serif";
                                 var dim = canvas.measureText("Pause");
@@ -291,5 +310,5 @@
 })(jQuery || {});
 
 $(document).ready(function (){
-    $('#test').jqPong({'height': 500, 'width': 500});
+    $('#test').jqPong({'height': 500, 'width': 500}); // ,color: 'rgba(255, 0, 0, 1)'
 })
