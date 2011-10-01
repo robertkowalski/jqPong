@@ -2,9 +2,20 @@
  * jqPong Plugin for jQuery JavaScript Library
  * http://www.github.com/robertkowalski
  *
- * Copyright (c) 2011 R. Kowalski
- * licensed under the MIT license.
- *  - http://www.opensource.org/licenses/mit-license.php
+ * DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ *
+ * Version 2, December 2004
+ *
+ * Copyright (C) 2011 Robert Kowalski
+ *
+ * Everyone is permitted to copy and distribute verbatim or modified
+ * copies of this license document, and changing it is allowed as long
+ * as the name is changed.
+ *
+ * DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ * TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+ *
+ * 0. You just DO WHAT THE FUCK YOU WANT TO.
  *
  * Author: R. Kowalski
  * Version: 0.5
