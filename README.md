@@ -24,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 ```javascript
     $(document).ready(function (){
          $('#yourElement').pong();
-    )}
+    })
 ```
     
 With options
