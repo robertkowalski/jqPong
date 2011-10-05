@@ -26,8 +26,8 @@
  * 
  * 
  * Author: R. Kowalski
- * Version: 0.5
- * Date: 17th Sep 2011
+ * Version: 0.5.1
+ * Date: 05th Oct 2011
  *
  */
 
@@ -87,10 +87,8 @@
 
             var movePads = function(deltaY, pad) {
                 padsOld[pad][1] = pads[pad][1];
+                pads[pad][1] -= deltaY;
                 
-                for (var i = 0; i < 2; i++) {
-                    pads[pad][1] -= deltaY;
-                }
             };
 
 
