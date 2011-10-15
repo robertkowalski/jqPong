@@ -26,8 +26,8 @@
  * 
  * 
  * Author: R. Kowalski
- * Version: 0.5.1
- * Date: 05th Oct 2011
+ * Version: 0.5.2
+ * Date: 15th Oct 2011
  *
  */
 
@@ -82,6 +82,7 @@
 
             var clear = function() {
                 canvas.clearRect(0, 0, width, height); //x,y,w,h
+                
             };
 
 
@@ -98,6 +99,7 @@
                 yd: "up",
                 speed: 2,
                 oldPos: [200, 200, 10, 10]
+                
             };
 
 
@@ -317,4 +319,4 @@
         })
     };
 
-})(jQuery || {});
+})(jQuery);
