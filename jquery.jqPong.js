@@ -103,7 +103,7 @@
 
             var draw = function() {
                 //pads
-                for(var i = 0; i < pads.length; i++) {
+                for(var i = 0, p = pads.length; i < p; i++) {
                     //rect(x, y, width, height)
                     canvas.clearRect(padsOld[i][0], padsOld[i][1], padsOld[i][2], padsOld[i][3]); //x,y,w,h
                     canvas.fillRect(pads[i][0], pads[i][1], pads[i][2], pads[i][3]);
