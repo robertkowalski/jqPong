@@ -227,14 +227,7 @@
 
 
             var ResetGame = function() {
-                clear();
-                
-                pads[0] = [0, 100, 20, 150];
-                pads[1] = [width-20, 100, 20, 150];
-                
-                padsOld[0] = [0, 100, 20, 150];
-                padsOld[1] = [width-20, 100, 20, 150];
-                
+                clear();               
                 
                 if(Ball.xd == "right") {
                     var newXd = "left";
