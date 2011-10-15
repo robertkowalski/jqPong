@@ -26,8 +26,8 @@
  * 
  * 
  * Author: R. Kowalski
- * Version: 0.5.1
- * Date: 05th Oct 2011
+ * Version: 0.5.2
+ * Date: 15th Oct 2011
  *
  */
 
@@ -82,6 +82,7 @@
 
             var clear = function() {
                 canvas.clearRect(0, 0, width, height); //x,y,w,h
+                
             };
 
 
@@ -98,12 +99,13 @@
                 yd: "up",
                 speed: 2,
                 oldPos: [200, 200, 10, 10]
+                
             };
 
 
             var draw = function() {
                 //pads
-                for(var i = 0; i < pads.length; i++) {
+                for(var i = 0, p = pads.length; i < p; i++) {
                     //rect(x, y, width, height)
                     canvas.clearRect(padsOld[i][0], padsOld[i][1], padsOld[i][2], padsOld[i][3]); //x,y,w,h
                     canvas.fillRect(pads[i][0], pads[i][1], pads[i][2], pads[i][3]);
@@ -227,14 +229,7 @@
 
 
             var ResetGame = function() {
-                clear();
-                
-                pads[0] = [0, 100, 20, 150];
-                pads[1] = [width-20, 100, 20, 150];
-                
-                padsOld[0] = [0, 100, 20, 150];
-                padsOld[1] = [width-20, 100, 20, 150];
-                
+                clear();               
                 
                 if(Ball.xd == "right") {
                     var newXd = "left";
@@ -324,4 +319,4 @@
         })
     };
 
-})(jQuery || {});
+})(jQuery);
